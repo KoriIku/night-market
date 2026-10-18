@@ -451,7 +451,7 @@ function updateSizzle() {
   audio.setSizzle(level);
 }
 
-function accuracyVerdict(pct) {
+function accuracyVerdict(pct, over) {
   if (pct == null) {
     return { title: "今晚的小票", comment: "这次没留数。下次离开前在心里报个价，回来就能看到你的实力。" };
   }
@@ -465,9 +465,13 @@ function accuracyVerdict(pct) {
     return { title: "大概有数", comment: "方向拿捏得死死的！只差一点点细节，再抠一抠，人形计算器就是你了。" };
   }
   if (pct <= 35) {
-    return { title: "钱好像长了腿", comment: "能在夜市全身而退已经很厉害了！不是你不会算，是摊主们太会卖。" };
+    return over
+      ? { title: "虚惊一场", comment: "预估值一路往上飘，结果账本比你想象的温柔。钱还在，只是你想多了。" }
+      : { title: "钱好像长了腿", comment: "能在夜市全身而退已经很厉害了！不是你不会算，是摊主们太会卖。" };
   }
-  return { title: "钱去哪了", comment: "别慌，这不怪你，是夜市太会了！今晚先交个学费，下次一定把钱看住。" };
+  return over
+    ? { title: "自己吓自己", comment: "你把账往高了猜了一大截，其实钱花得比你想的少。今晚的夜市没你想象的那么狠。" }
+    : { title: "钱去哪了", comment: "别慌，这不怪你，是夜市太会了！今晚先交个学费，下次一定把钱看住。" };
 }
 
 function endNight(guess) {
@@ -484,10 +488,11 @@ function endNight(guess) {
   const hasGuess = guess != null;
   const error = hasGuess ? Math.abs(guess * 100 - spent) : null;
   const pct = !hasGuess ? null : spent > 0 ? (error / spent) * 100 : error === 0 ? 0 : null;
+  const over = hasGuess && guess * 100 > spent;
   const verdict =
     state.purchases.length === 0
       ? { title: "空手而归", comment: "零消费通关！神仙级别的定力，钱包完好无损，今晚的夜市输给了你。" }
-      : accuracyVerdict(pct);
+      : accuracyVerdict(pct, over);
   const diffText = !hasGuess
     ? ""
     : error === 0
