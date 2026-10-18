@@ -16,7 +16,6 @@ export function createUI() {
     modalGuess: $("modal-guess"),
     guessTitle: $("guess-title"),
     guessInput: $("guess-input"),
-    guessSkip: $("guess-skip"),
     guessOk: $("guess-ok"),
     modalReceipt: $("modal-receipt"),
     receiptTitle: $("receipt-title"),
@@ -550,9 +549,8 @@ export function createUI() {
     openGuess(options, onDone) {
       dom.guessTitle.textContent = options.title;
       dom.guessInput.removeAttribute("max");
-      dom.guessInput.value = String(options.value ?? 50);
+      dom.guessInput.value = String(options.value ?? 100);
       dom.guessOk.textContent = options.confirmLabel || "记下";
-      dom.guessSkip.textContent = options.skipLabel || "算了";
       dom.modalGuess.classList.remove("hidden");
       requestAnimationFrame(() => {
         dom.guessInput.focus();
@@ -568,7 +566,6 @@ export function createUI() {
         if (!Number.isFinite(value)) return;
         finish(Math.max(0, value));
       };
-      dom.guessSkip.onclick = () => finish(null);
     },
     closeGuess() {
       dom.modalGuess.classList.add("hidden");

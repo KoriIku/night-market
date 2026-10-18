@@ -570,7 +570,7 @@ ui.onHome(() => {
   modalOpen = true;
   ui.closeStall();
   ui.openGuess(
-    { title: "最后猜一次，花了多少", value: 50, confirmLabel: "看结果", skipLabel: "直接看" },
+    { title: "最后猜一次，花了多少", value: 100, confirmLabel: "看结果" },
     (value) => {
       modalOpen = false;
       if (value != null) state.guesses.push({ value, actual: state.spent });
