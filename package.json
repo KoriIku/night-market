@@ -1,0 +1,14 @@
+{
+  "name": "xiaofei",
+  "version": "0.1.0",
+  "private": true,
+  "description": "夜市一百块 · Three.js 轻量小游戏",
+  "type": "module",
+  "scripts": {
+    "dev": "node serve.mjs",
+    "check": "node --check src/main.js && node --check src/ui.js && node --check src/shareCard.js && node --check src/character.js && node --check src/audio.js && node --check src/data.js && node --check src/toon.js && node --check src/world/index.js && node --check src/world/constants.js && node --check src/world/geometry.js && node --check src/world/textures.js && node --check src/world/effects.js && node --check src/world/decorations.js && node --check src/world/stall.js && node --check src/world/surroundings.js"
+  },
+  "dependencies": {
+    "three": "0.186.1"
+  }
+}

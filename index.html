@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>小吃街模拟器</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./src/style.css" />
+    <script type="importmap">
+      { "imports": { "three": "./vendor/three.module.js" } }
+    </script>
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+
+    <div id="hud" class="hidden">
+      <div class="topbar">
+        <span id="clock" class="clock">19:40</span>
+        <div class="actions">
+          <button id="btn-sound" class="btn ghost">声音</button>
+        </div>
+      </div>
+      <button id="btn-home" class="btn primary home-action" type="button">买够了</button>
+      <button id="btn-interact" class="interact hidden" type="button">
+        <span class="interact-dot"></span>
+        <span id="interact-label">点单</span>
+      </button>
+      <div id="floats" class="floats"></div>
+      <div id="toasts" class="toasts"></div>
+    </div>
+
+    <div id="overlay">
+      <section id="panel-stall" class="panel sheet hidden">
+        <header>
+          <h2 id="stall-name"></h2>
+          <button class="btn icon" data-close="stall" aria-label="收起">×</button>
+        </header>
+        <p id="stall-note" class="note"></p>
+        <div id="stall-items" class="items"></div>
+        <div id="stall-extra" class="extra hidden"></div>
+      </section>
+
+      <div id="modal-guess" class="modal hidden">
+        <div class="card">
+          <h3 id="guess-title">猜猜花了多少</h3>
+          <label class="guess-field">
+            <span>¥</span>
+            <input id="guess-input" type="number" min="0" step="0.1" value="50" inputmode="decimal" aria-label="猜猜花掉了多少钱" />
+            <small>元</small>
+          </label>
+          <div class="row">
+            <button id="guess-skip" class="btn ghost">算了</button>
+            <button id="guess-ok" class="btn primary">记下</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="modal-receipt" class="modal hidden">
+        <div class="card receipt">
+          <header class="receipt-head">
+            <h3 id="receipt-title">今晚的小票</h3>
+            <p id="receipt-comment" class="receipt-comment"></p>
+          </header>
+          <div id="receipt-hero" class="receipt-hero">
+            <div class="hero-cell">
+              <span class="hero-label">实际花了</span>
+              <b id="receipt-spent" class="hero-value">¥0</b>
+            </div>
+            <div class="hero-cell">
+              <span class="hero-label">你的预估</span>
+              <b id="receipt-guess" class="hero-value">-</b>
+            </div>
+            <div class="hero-cell accent">
+              <span class="hero-label">相差</span>
+              <b id="receipt-pct" class="hero-value">-</b>
+            </div>
+          </div>
+          <p id="receipt-dir" class="receipt-dir"></p>
+          <div id="receipt-lines" class="lines"></div>
+          <div id="receipt-stats" class="stats"></div>
+          <div class="receipt-actions">
+            <button id="btn-save-image" class="btn" type="button">保存图片</button>
+            <button id="btn-copy-image" class="btn" type="button">复制图片</button>
+          </div>
+          <button id="btn-again" class="btn primary big">再逛一次！</button>
+        </div>
+      </div>
+
+      <div id="start" class="start">
+        <div class="start-copy">
+          <h1>我的钱怎么就花完了？</h1>
+          <p class="subtitle">试试你对钱的敏感度……</p>
+        </div>
+        <button id="btn-start" class="btn primary big">开始逛夜市</button>
+      </div>
+
+      <div id="intro" class="start intro hidden">
+        <h2>游戏玩法</h2>
+        <ol class="steps">
+          <li>想象你计划花掉100块，在夜市中简单地逛一圈。</li>
+          <li>不要刻意精确地计算金额，就像平常逛小吃街一样就好。</li>
+        </ol>
+        <button id="btn-enter" class="btn primary big">进夜市</button>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
